@@ -113,7 +113,7 @@ public class VarastoTest {
     
     @Test
     public void otetaanSopivaMaara(){
-        varasto.lisaaVarastoon(4);
+        varasto.lisaaVarastoon(5);
         double paluuarvo = varasto.otaVarastosta(4.9);
         assertEquals(4.9, paluuarvo, vertailuTarkkuus);
         assertEquals(0.1, varasto.getSaldo(), vertailuTarkkuus);
