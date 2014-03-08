@@ -69,10 +69,53 @@ public class VarastoTest {
     public void konstr() {
         varasto = new Varasto(-1);
         varasto = new Varasto(0);
-        varasto = new Varasto(1,1);
-        varasto = new Varasto(1,2);
-        varasto = new Varasto(-1,2);
-        varasto = new Varasto(-1,-1);
+        varasto = new Varasto(1, 1);
+        varasto = new Varasto(1, 2);
+        varasto = new Varasto(-1, 2);
+        varasto = new Varasto(-1, -1);
         varasto.toString();
+    }
+
+    @Test
+    public void lisataanNegatiivinenMaara() {
+        varasto.lisaaVarastoon(5);
+        varasto.lisaaVarastoon(-0.1);
+        assertEquals(5, varasto.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void lisataanMahtuvaMaara() {
+        varasto.lisaaVarastoon(5);
+        assertEquals(5, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void lisataanYlitayteen(){
+        varasto.lisaaVarastoon(11);
+        assertEquals(10, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void otetaanNegatiivinenMaara(){
+        varasto.lisaaVarastoon(5);
+        double paluuarvo = varasto.otaVarastosta(-0.1);
+        assertEquals(paluuarvo, 0.0, vertailuTarkkuus);
+        assertEquals(varasto.getSaldo(), 5, vertailuTarkkuus);
+    }
+    
+    @Test
+    public void otetaanLiikaa(){
+        varasto.lisaaVarastoon(5);
+        double paluuarvo = varasto.otaVarastosta(6);
+        assertEquals(5, paluuarvo, vertailuTarkkuus);
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void otetaanSopivaMaara(){
+        varasto.lisaaVarastoon(5);
+        double paluuarvo = varasto.otaVarastosta(4.9);
+        assertEquals(4.9, paluuarvo, vertailuTarkkuus);
+        assertEquals(0.1, varasto.getSaldo(), vertailuTarkkuus);
     }
 }
